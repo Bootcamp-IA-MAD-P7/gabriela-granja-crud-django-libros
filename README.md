@@ -1,25 +1,193 @@
-# CRUD de Libros con Django
+# CRUD con Django
 
-## Descripción
+## ¿Qué es Django?
 
-Este proyecto consiste en una aplicación CRUD desarrollada con Django para la gestión de libros. El sistema permite crear, visualizar, editar y eliminar libros utilizando el patrón de arquitectura MVT (Model - View - Template).
-
-Además, se utiliza el panel de administración de Django para gestionar los registros desde una interfaz visual.
+Django es un framework desarrollado en Python que permite crear aplicaciones web de forma rápida, organizada y segura. Django incluye herramientas integradas para trabajar con bases de datos, formularios, paneles de administración y sistemas CRUD.
 
 ---
 
-# ¿Qué es un CRUD?
+# 1. ¿Qué es un CRUD?
 
-CRUD es un conjunto de operaciones básicas utilizadas en aplicaciones web para manipular datos.
-
-Las siglas significan:
+CRUD es el conjunto de las cuatro operaciones básicas que una aplicación realiza sobre los datos:
 
 - Create → Crear
 - Read → Leer
 - Update → Actualizar
 - Delete → Eliminar
 
-En este proyecto, el CRUD se aplica sobre libros almacenados en una base de datos SQLite.
+Estas operaciones están presentes en prácticamente todas las aplicaciones web modernas.
+
+Por ejemplo, en una aplicación de tareas el usuario puede:
+
+- crear una nueva tarea
+- visualizar tareas guardadas
+- modificar tareas existentes
+- eliminar tareas
+
+El objetivo principal de un CRUD es permitir la gestión completa de información dentro de una aplicación.
+
+---
+
+# 2. Patrones de arquitectura
+
+Los patrones de arquitectura son formas organizadas de estructurar una aplicación para mantener el código limpio, ordenado y fácil de mantener.
+
+## MVC (Modelo – Vista – Controlador)
+
+En este patrón:
+
+- el Modelo gestiona los datos
+- la Vista muestra la información al usuario
+- el Controlador procesa la lógica
+
+---
+
+## MVT (Modelo – Vista – Template)
+
+Django utiliza una variante llamada MVT.
+
+En este patrón:
+
+- el Modelo gestiona los datos
+- la View procesa la lógica
+- el Template representa la parte visual mediante HTML
+
+La principal diferencia entre MVC y MVT es que en Django la View cumple funciones similares al Controller de MVC.
+
+---
+
+# 3. Estructura de un proyecto Django
+
+Un proyecto Django se organiza en distintos componentes:
+
+## Models
+
+Representan los datos y la conexión con la base de datos.
+
+## Views
+
+Reciben las peticiones del usuario y procesan la lógica.
+
+## Templates
+
+Son archivos HTML que muestran información visualmente.
+
+## URLs
+
+Conectan rutas web con las Views correspondientes.
+
+---
+
+## Uso de {% %} y {{ }}
+
+En Django:
+
+```django
+{% %}
+se utiliza para lógica:
+
+bucles
+condiciones
+estructuras de control
+
+Mientras que:
+{{ }}
+se utiliza para mostrar datos dinámicos.
+4. Flujo entre formulario HTML y base de datos
+
+El flujo en Django funciona así:
+Usuario
+↓
+Formulario HTML
+↓
+View
+↓
+Model
+↓
+Base de datos
+↓
+Respuesta HTML
+5. Herramientas y comandos de Django
+startproject
+
+Crea un proyecto Django nuevo.
+python -m django startproject sistema_libros .
+
+startapp
+Crea una aplicación dentro del proyecto.
+python manage.py startapp libros
+
+runserver
+Ejecuta el servidor local.
+python manage.py runserver
+
+makemigrations
+Genera archivos de migración a partir de los Models.
+python manage.py makemigrations
+
+migrate
+Aplica migraciones a la base de datos.
+python manage.py migrate
+
+ModelForm
+
+Permite generar formularios automáticamente usando Models.
+El Admin permite:
+
+crear registros
+editar registros
+eliminar registros
+visualizar información
+
+sin necesidad de programar un panel manualmente.
+7. REST y Django REST Framework
+
+Django puede trabajar con APIs REST usando Django REST Framework.
+
+REST es una arquitectura que permite comunicar aplicaciones mediante HTTP.
+
+Las operaciones CRUD suelen relacionarse con:
+
+GET → Leer
+POST → Crear
+PUT/PATCH → Actualizar
+DELETE → Eliminar
+
+Django REST Framework facilita la creación de APIs que devuelven información en formato JSON.
+
+Conclusión
+
+Django facilita enormemente el desarrollo de aplicaciones CRUD gracias a:
+
+arquitectura MVT
+sistema de Models
+panel Admin automático
+formularios automáticos
+migraciones
+Django REST Framework
+
+Estas herramientas permiten desarrollar aplicaciones web organizadas y escalables incluso para desarrolladores junior.
+
+
+---
+
+# PARTE 2 — README DEL PROYECTO
+
+```md
+# CRUD de Libros con Django
+
+## Descripción
+
+Este proyecto consiste en una aplicación CRUD desarrollada con Django para gestionar libros.
+
+La aplicación permite:
+
+- crear libros
+- visualizar libros
+- editar libros
+- eliminar libros
+
+También se utiliza el panel de administración de Django para gestionar registros desde una interfaz visual.
 
 ---
 
@@ -33,33 +201,9 @@ En este proyecto, el CRUD se aplica sobre libros almacenados en una base de dato
 
 ---
 
-# Patrón MVT en Django
+# Estructura del proyecto
 
-Django utiliza el patrón MVT:
-
-## Model
-
-Gestiona los datos y la conexión con la base de datos.
-
-Ejemplo:
-
-```python
-class Libro(models.Model):
-View
-
-Procesa la lógica y conecta los datos con los templates.
-
-Ejemplo:
-
-def lista_libros(request):
-Template
-
-Muestra la interfaz HTML al usuario.
-
-Ejemplo:
-
-lista_libros.html
-Estructura del proyecto
+```text
 crud_python/
 │
 ├── libros/
@@ -88,103 +232,51 @@ crud_python/
 ├── db.sqlite3
 ├── manage.py
 └── README.md
+
 Funcionalidades
 
-El proyecto permite:
+La aplicación permite:
 
 Crear libros
 Ver lista de libros
-Ver detalle de un libro
+Ver detalle de libros
 Editar libros
 Eliminar libros
 Gestionar libros desde Django Admin
-Comandos utilizados en Django
-Crear proyecto
-python -m django startproject sistema_libros .
-Crear app
-python manage.py startapp libros
+Ejecución del proyecto
 Crear migraciones
 python manage.py makemigrations
-
-Este comando detecta cambios en los modelos y genera archivos de migración.
-
 Aplicar migraciones
 python manage.py migrate
-
-Aplica las migraciones a la base de datos SQLite.
-
-Ejecutar servidor
-python manage.py runserver
-
-Inicia el servidor local de Django.
-
 Crear superusuario
 python manage.py createsuperuser
-
-Permite acceder al panel administrativo.
-
-Uso del Admin de Django
-
-Django incluye un panel de administración automático.
-
-Acceso:
-
-http://localhost:8000/admin/
-
-Desde el admin se pueden:
-
-crear libros
-editar libros
-eliminar libros
-visualizar registros
-URLs principales
-Panel Admin
+Ejecutar servidor
+python manage.py runserver
+Acceso al proyecto
+Admin Django
 http://localhost:8000/admin/
 Lista de libros
 http://localhost:8000/libros/
 Detalle de libro
 http://localhost:8000/libros/1/
-Flujo de datos en Django
-
-El flujo básico funciona así:
-
-Usuario
-↓
-Formulario HTML
-↓
-View
-↓
-Model
-↓
-Base de datos SQLite
-↓
-Template HTML
-↓
-Respuesta al usuario
-Formularios en Django
-
-El proyecto utiliza ModelForm para generar formularios automáticamente a partir del modelo Libro.
-
-Archivo:
-
-forms.py
 Base de datos
 
-Se utiliza SQLite como base de datos por defecto de Django.
+El proyecto utiliza SQLite como base de datos por defecto.
 
 Archivo generado:
 
 db.sqlite3
 Conclusión
 
-Este proyecto permitió comprender el funcionamiento básico de Django y el desarrollo de aplicaciones CRUD utilizando:
+Este proyecto permitió comprender el flujo completo de desarrollo CRUD en Django utilizando:
 
-modelos
-vistas
-templates
-formularios
+Models
+Views
+Templates
 URLs
-migraciones
-panel administrativo
+Forms
+Admin
+Migraciones
+Base de datos SQLite
 
-Además, se aprendió el flujo completo entre frontend, backend y base de datos usando el patrón MVT.
+Además, permitió comprender el patrón MVT y el flujo entre frontend y backend dentro de Django.
